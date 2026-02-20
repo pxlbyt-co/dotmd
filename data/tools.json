@@ -1,0 +1,122 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000101",
+    "slug": "cursor",
+    "name": "Cursor",
+    "description": "AI-first code editor with project and rule-based context controls.",
+    "website_url": "https://cursor.com",
+    "icon_slug": "cursor",
+    "sort_order": 1,
+    "primary_files": [".cursorrules", "AGENTS.md", ".cursor/rules/*.mdc"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000102",
+    "slug": "claude-code",
+    "name": "Claude Code",
+    "description": "Claude's local coding assistant with repository-aware instruction files.",
+    "website_url": "https://claude.ai",
+    "icon_slug": "claude-code",
+    "sort_order": 2,
+    "primary_files": ["CLAUDE.md", "AGENTS.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000103",
+    "slug": "github-copilot",
+    "name": "GitHub Copilot",
+    "description": "AI coding companion integrated into GitHub and popular editors.",
+    "website_url": "https://github.com/features/copilot",
+    "icon_slug": "github-copilot",
+    "sort_order": 3,
+    "primary_files": [".github/copilot-instructions.md", ".github/agents/*.agent.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000112",
+    "slug": "openclaw",
+    "name": "OpenClaw",
+    "description": "Open-source personal AI assistant configured through workspace markdown files.",
+    "website_url": "https://github.com/openclaw/openclaw",
+    "icon_slug": "openclaw",
+    "sort_order": 4,
+    "primary_files": ["AGENTS.md", "SOUL.md", "IDENTITY.md", "USER.md", "TOOLS.md", "MEMORY.md", "HEARTBEAT.md", "COMMANDS.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000104",
+    "slug": "openai-codex",
+    "name": "OpenAI Codex",
+    "description": "Agentic coding workflows using AGENTS.md and skill directories.",
+    "website_url": "https://openai.com",
+    "icon_slug": "openai-codex",
+    "sort_order": 5,
+    "primary_files": ["AGENTS.md", ".codex/skills/"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000105",
+    "slug": "windsurf",
+    "name": "Windsurf",
+    "description": "AI IDE with global and workspace-level rule files.",
+    "website_url": "https://windsurf.com",
+    "icon_slug": "windsurf",
+    "sort_order": 6,
+    "primary_files": [".windsurfrules", "global_rules.md", ".windsurf/rules/"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000106",
+    "slug": "cline",
+    "name": "Cline",
+    "description": "Autonomous coding agent for VS Code with rules and iterative plans.",
+    "website_url": "https://cline.bot",
+    "icon_slug": "cline",
+    "sort_order": 7,
+    "primary_files": [".clinerules", ".clinerules/*.md", "AGENTS.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000107",
+    "slug": "google-jules",
+    "name": "Google Jules",
+    "description": "Google's coding agent workflow guided by JULES.md.",
+    "website_url": "https://jules.google.com",
+    "icon_slug": "google-jules",
+    "sort_order": 8,
+    "primary_files": ["JULES.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000108",
+    "slug": "gemini-cli",
+    "name": "Gemini CLI",
+    "description": "Terminal-native Gemini assistant configured through GEMINI.md.",
+    "website_url": "https://ai.google.dev",
+    "icon_slug": "gemini-cli",
+    "sort_order": 9,
+    "primary_files": ["GEMINI.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000109",
+    "slug": "aider",
+    "name": "Aider",
+    "description": "Pair programming assistant for git repos configured through YAML.",
+    "website_url": "https://aider.chat",
+    "icon_slug": "aider",
+    "sort_order": 10,
+    "primary_files": [".aider.conf.yml"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000110",
+    "slug": "vscode",
+    "name": "VS Code",
+    "description": "Visual Studio Code prompt and chat mode instruction files.",
+    "website_url": "https://code.visualstudio.com",
+    "icon_slug": "vscode",
+    "sort_order": 11,
+    "primary_files": [".prompt.md", ".chatmode.md"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000111",
+    "slug": "replit",
+    "name": "Replit",
+    "description": "Cloud IDE with project-level agent instruction files.",
+    "website_url": "https://replit.com",
+    "icon_slug": "replit",
+    "sort_order": 12,
+    "primary_files": [".replit.md"]
+  }
+]

@@ -1,0 +1,10 @@
+node_modules
+.next
+.env.local
+.env.*.local
+.DS_Store
+next-env.d.ts
+tsconfig.tsbuildinfo
+-e 
+# Supabase CLI temp files
+supabase/.temp/

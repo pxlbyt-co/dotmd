@@ -1,0 +1,107 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000301",
+    "slug": "react",
+    "name": "React",
+    "category": "framework",
+    "sort_order": 1
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000302",
+    "slug": "nextjs",
+    "name": "Next.js",
+    "category": "framework",
+    "sort_order": 2
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000303",
+    "slug": "vue",
+    "name": "Vue",
+    "category": "framework",
+    "sort_order": 3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000304",
+    "slug": "sveltekit",
+    "name": "SvelteKit",
+    "category": "framework",
+    "sort_order": 4
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000305",
+    "slug": "django",
+    "name": "Django",
+    "category": "framework",
+    "sort_order": 5
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000306",
+    "slug": "typescript",
+    "name": "TypeScript",
+    "category": "language",
+    "sort_order": 1
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000307",
+    "slug": "python",
+    "name": "Python",
+    "category": "language",
+    "sort_order": 2
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000308",
+    "slug": "go",
+    "name": "Go",
+    "category": "language",
+    "sort_order": 3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000309",
+    "slug": "rust",
+    "name": "Rust",
+    "category": "language",
+    "sort_order": 4
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000310",
+    "slug": "ruby",
+    "name": "Ruby",
+    "category": "language",
+    "sort_order": 5
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000311",
+    "slug": "testing",
+    "name": "Testing",
+    "category": "use_case",
+    "sort_order": 1
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000312",
+    "slug": "debugging",
+    "name": "Debugging",
+    "category": "use_case",
+    "sort_order": 2
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000313",
+    "slug": "code-review",
+    "name": "Code Review",
+    "category": "use_case",
+    "sort_order": 3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000314",
+    "slug": "documentation",
+    "name": "Documentation",
+    "category": "use_case",
+    "sort_order": 4
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000315",
+    "slug": "refactoring",
+    "name": "Refactoring",
+    "category": "use_case",
+    "sort_order": 5
+  }
+]

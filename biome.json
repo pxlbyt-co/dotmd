@@ -1,0 +1,21 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.4.1/schema.json",
+	"files": {
+		"includes": ["src/**/*.{ts,tsx}", "next.config.ts", "postcss.config.cjs"]
+	},
+	"formatter": {
+		"indentStyle": "tab",
+		"lineWidth": 100
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "always",
+			"quoteStyle": "double"
+		}
+	},
+	"linter": {
+		"rules": {
+			"recommended": true
+		}
+	}
+}

@@ -1,0 +1,173 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000201",
+    "slug": "agents-md",
+    "name": "AGENTS.md",
+    "description": "Cross-tool instruction spec for coding agents.",
+    "default_path": "AGENTS.md",
+    "sort_order": 1,
+    "supported_tools": ["cursor", "claude-code", "openai-codex", "windsurf", "cline", "openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000202",
+    "slug": "claude-md",
+    "name": "CLAUDE.md",
+    "description": "Project instructions for Claude Code.",
+    "default_path": "CLAUDE.md",
+    "sort_order": 2,
+    "supported_tools": ["claude-code"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000203",
+    "slug": "cursorrules",
+    "name": ".cursorrules",
+    "description": "Legacy Cursor rules file for repository guidance.",
+    "default_path": ".cursorrules",
+    "sort_order": 3,
+    "supported_tools": ["cursor"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000204",
+    "slug": "windsurfrules",
+    "name": ".windsurfrules",
+    "description": "Legacy Windsurf rules file for coding behavior.",
+    "default_path": ".windsurfrules",
+    "sort_order": 4,
+    "supported_tools": ["windsurf"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000205",
+    "slug": "soul-md",
+    "name": "SOUL.md",
+    "description": "Assistant identity and behavior contract.",
+    "default_path": "SOUL.md",
+    "sort_order": 5,
+    "supported_tools": ["claude-code", "openai-codex", "openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000206",
+    "slug": "gemini-md",
+    "name": "GEMINI.md",
+    "description": "Gemini CLI project configuration and conventions.",
+    "default_path": "GEMINI.md",
+    "sort_order": 6,
+    "supported_tools": ["gemini-cli"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000207",
+    "slug": "jules-md",
+    "name": "JULES.md",
+    "description": "Google Jules repository instruction file.",
+    "default_path": "JULES.md",
+    "sort_order": 7,
+    "supported_tools": ["google-jules"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000208",
+    "slug": "clinerules",
+    "name": ".clinerules",
+    "description": "Cline project rules and execution preferences.",
+    "default_path": ".clinerules",
+    "sort_order": 8,
+    "supported_tools": ["cline"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000209",
+    "slug": "copilot-instructions",
+    "name": "copilot-instructions.md",
+    "description": "GitHub Copilot instruction file for repository context.",
+    "default_path": ".github/copilot-instructions.md",
+    "sort_order": 9,
+    "supported_tools": ["github-copilot"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000210",
+    "slug": "replit-md",
+    "name": ".replit.md",
+    "description": "Replit instruction file for coding agent behavior.",
+    "default_path": ".replit.md",
+    "sort_order": 10,
+    "supported_tools": ["replit"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000211",
+    "slug": "identity-md",
+    "name": "IDENTITY.md",
+    "description": "Assistant metadata and persona context file.",
+    "default_path": "IDENTITY.md",
+    "sort_order": 11,
+    "supported_tools": ["claude-code", "openai-codex", "openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000212",
+    "slug": "aider-conf-yml",
+    "name": ".aider.conf.yml",
+    "description": "Aider configuration file for model and edit settings.",
+    "default_path": ".aider.conf.yml",
+    "sort_order": 12,
+    "supported_tools": ["aider"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000213",
+    "slug": "prompt-md",
+    "name": ".prompt.md",
+    "description": "VS Code prompt file for reusable interactions.",
+    "default_path": ".prompt.md",
+    "sort_order": 13,
+    "supported_tools": ["vscode"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000214",
+    "slug": "chatmode-md",
+    "name": ".chatmode.md",
+    "description": "VS Code chat mode behavior configuration.",
+    "default_path": ".chatmode.md",
+    "sort_order": 14,
+    "supported_tools": ["vscode"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000215",
+    "slug": "user-md",
+    "name": "USER.md",
+    "description": "User profile and preferences for personalized AI assistance.",
+    "default_path": "USER.md",
+    "sort_order": 15,
+    "supported_tools": ["openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000216",
+    "slug": "tools-md",
+    "name": "TOOLS.md",
+    "description": "Environment-specific tool notes and infrastructure documentation.",
+    "default_path": "TOOLS.md",
+    "sort_order": 16,
+    "supported_tools": ["openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000217",
+    "slug": "memory-md",
+    "name": "MEMORY.md",
+    "description": "Curated long-term memory structure for persistent context.",
+    "default_path": "MEMORY.md",
+    "sort_order": 17,
+    "supported_tools": ["openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000218",
+    "slug": "heartbeat-md",
+    "name": "HEARTBEAT.md",
+    "description": "Periodic health check instructions and monitoring tasks.",
+    "default_path": "HEARTBEAT.md",
+    "sort_order": 18,
+    "supported_tools": ["openclaw"]
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000219",
+    "slug": "commands-md",
+    "name": "COMMANDS.md",
+    "description": "Custom slash commands and shortcut definitions.",
+    "default_path": "COMMANDS.md",
+    "sort_order": 19,
+    "supported_tools": ["openclaw"]
+  }
+]
