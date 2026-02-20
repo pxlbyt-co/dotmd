@@ -12,18 +12,18 @@ export const actionClient = createSafeActionClient({
 export const authActionClient = actionClient.use(async ({ next }) => {
 	const supabase = await createClient();
 	const {
-		data: { session },
+		data: { user },
 		error,
-	} = await supabase.auth.getSession();
+	} = await supabase.auth.getUser();
 
-	if (error || !session) {
+	if (error || !user) {
 		throw new Error("Not authenticated");
 	}
 
 	return next({
 		ctx: {
 			supabase,
-			user: session.user,
+			user,
 		},
 	});
 });
