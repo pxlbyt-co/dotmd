@@ -7,13 +7,20 @@ import { z } from "zod";
 import { authActionClient } from "@/actions/safe-action";
 import { RESERVED_SLUGS } from "@/lib/constants";
 
+const uuidLike = z
+	.string()
+	.regex(
+		/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+		"Invalid ID format",
+	);
+
 const submitConfigSchema = z.object({
 	title: z.string().min(3).max(100),
 	description: z.string().min(10).max(500),
 	content: z.string().min(10).max(50_000),
-	file_type_id: z.string().uuid(),
-	tool_ids: z.array(z.string().uuid()).min(1),
-	tag_ids: z.array(z.string().uuid()).min(1),
+	file_type_id: uuidLike,
+	tool_ids: z.array(uuidLike).min(1),
+	tag_ids: z.array(uuidLike).min(1),
 });
 
 function slugifyTitle(title: string): string {

@@ -9,10 +9,17 @@ import { createClient } from "@/lib/supabase/server";
 
 import { actionClient } from "./safe-action";
 
+const uuidLike = z
+	.string()
+	.regex(
+		/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+		"Invalid ID format",
+	);
+
 export const anonymousVote = actionClient
 	.schema(
 		z.object({
-			config_id: z.string().uuid(),
+			config_id: uuidLike,
 		}),
 	)
 	.action(async ({ parsedInput: { config_id } }) => {
