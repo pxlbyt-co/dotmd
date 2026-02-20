@@ -77,16 +77,6 @@ bunx supabase db push
 bun run dev
 ```
 
-### Environment Variables
-
-| Variable | Description |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only) |
-| `NEXT_PUBLIC_SITE_URL` | Your site URL (e.g., `http://localhost:3000`) |
-| `REVALIDATION_SECRET` | Secret for ISR webhook revalidation |
-
 ## Project Structure
 
 ```
