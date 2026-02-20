@@ -93,7 +93,7 @@ async function getHomepageData(): Promise<HomePageData> {
 		const configSelect =
 			"id, slug, title, description, author_name, file_type:file_types(slug, name, default_path), tools:config_tools(tool:tools(slug, name)), tags:config_tags(tag:tags(slug, name)), helpful_count:anonymous_votes(count)";
 
-		const [allConfigsResult, toolsResult] = await Promise.all([
+		const [allConfigsResult, toolsResult, activeToolSlugsResult] = await Promise.all([
 			supabase
 				.from("configs")
 				.select(configSelect)
@@ -101,6 +101,10 @@ async function getHomepageData(): Promise<HomePageData> {
 				.order("published_at", { ascending: false })
 				.limit(20),
 			supabase.from("tools").select("id, slug, name, description").order("sort_order"),
+			supabase
+				.from("config_tools")
+				.select("tool:tools!inner(slug), config:configs!inner(status)")
+				.eq("config.status", "published"),
 		]);
 
 		if (allConfigsResult.error || toolsResult.error) {
@@ -117,8 +121,12 @@ async function getHomepageData(): Promise<HomePageData> {
 		// Recent: newest 6 that aren't already in Featured
 		const recentCards = allCards.filter((c) => !featuredSlugs.has(c.slug)).slice(0, 6);
 
-		// Only show tools that have at least one published config
-		const toolSlugsWithConfigs = new Set(allCards.flatMap((c) => c.tools.map((t) => t.slug)));
+		// Show tools that have at least one published config (queried independently)
+		const toolSlugsWithConfigs = new Set(
+			(activeToolSlugsResult.data ?? [])
+				.map((row) => (row.tool as { slug: string } | null)?.slug)
+				.filter(Boolean),
+		);
 		const activeTools = ((toolsResult.data ?? []) as ToolItem[]).filter((t) =>
 			toolSlugsWithConfigs.has(t.slug),
 		);
