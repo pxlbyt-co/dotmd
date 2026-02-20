@@ -1,19 +1,49 @@
+<div align="center">
+
 # dotmd
 
-The **ANYTHING.md** directory — a browsable, searchable directory for AI coding assistant config files.
+The **ANYTHING.md** directory for AI config files.
 
-Browse, copy, and remix AGENTS.md, CLAUDE.md, .cursorrules, SOUL.md, and more — across every AI coding tool.
+Browse, copy, and remix AGENTS.md, CLAUDE.md, .cursorrules, SOUL.md, and more.
 
-**Live at:** [dotmd.directory](https://dotmd.directory)
+[![License: AGPL-3.0](https://img.shields.io/github/license/pxlbyt-co/dotmd)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/pxlbyt-co/dotmd)](https://github.com/pxlbyt-co/dotmd/stargazers)
+[![Site](https://img.shields.io/website?url=https%3A%2F%2Fdotmd.directory&label=dotmd.directory)](https://dotmd.directory)
+
+**[dotmd.directory](https://dotmd.directory)**
+
+<img src="docs/screenshots/homepage.png" alt="dotmd homepage" width="720" />
+
+</div>
 
 ## What is dotmd?
 
-Every AI coding tool has its own config format — `.cursorrules`, `CLAUDE.md`, `AGENTS.md`, `copilot-instructions.md`, `.windsurfrules`, `GEMINI.md`, `.clinerules`, `SOUL.md`, and more. dotmd is the place to discover, share, and remix all of them.
+Every AI coding tool has its own config format: `.cursorrules`, `CLAUDE.md`, `AGENTS.md`, `copilot-instructions.md`, `.windsurfrules`, `GEMINI.md`, `.clinerules`, `SOUL.md`, and more. dotmd is the place to discover, share, and remix all of them.
 
 - **Browse** configs by tool, file type, framework, and use case
 - **Copy** with one click and see exactly where to install them
-- **Vote** on what works — tool-specific upvotes, not just generic likes
+- **Vote** on what works with tool-specific upvotes
 - **Submit** your own configs via web form or GitHub PR
+
+<img src="docs/screenshots/browse.png" alt="Browse configs" width="720" />
+
+## Tool Pages
+
+Each tool gets its own page with supported config file types and all available configs.
+
+<img src="docs/screenshots/tool-page.png" alt="Cursor tool page" width="720" />
+
+## Config Pages
+
+Each config has install instructions, tool tags, and a full preview with syntax highlighting.
+
+<img src="docs/screenshots/config-detail.png" alt="Config detail page" width="720" />
+
+## Submit Your Own
+
+Share your configs with the community. Submissions are reviewed before publishing.
+
+<img src="docs/screenshots/submit.png" alt="Submit a config" width="720" />
 
 ## Tech Stack
 
@@ -34,33 +64,18 @@ Every AI coding tool has its own config format — `.cursorrules`, `CLAUDE.md`, 
 ### Setup
 
 ```bash
-# Clone the repo
 git clone https://github.com/pxlbyt-co/dotmd.git
 cd dotmd
 
-# Install dependencies
 bun install
 
-# Copy environment variables
 cp .env.example .env.local
 # Fill in your Supabase URL, anon key, and other values
 
-# Run database migrations
 bunx supabase db push
 
-# Start the dev server
 bun run dev
 ```
-
-### Environment Variables
-
-| Variable | Description |
-|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only) |
-| `NEXT_PUBLIC_SITE_URL` | Your site URL (e.g., `http://localhost:3000`) |
-| `REVALIDATION_SECRET` | Secret for ISR webhook revalidation |
 
 ## Project Structure
 
