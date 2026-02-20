@@ -27,6 +27,12 @@ Every AI coding tool has its own config format: `.cursorrules`, `CLAUDE.md`, `AG
 
 <img src="docs/screenshots/browse.png" alt="Browse configs" width="720" />
 
+## Tool Pages
+
+Each tool gets its own page with supported config file types and all available configs.
+
+<img src="docs/screenshots/tool-page.png" alt="Cursor tool page" width="720" />
+
 ## Config Pages
 
 Each config has install instructions, tool tags, and a full preview with syntax highlighting.
