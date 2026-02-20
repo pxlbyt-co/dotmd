@@ -34,8 +34,6 @@ function generateSlug(title: string): string {
 	return `${base}-${hash}`;
 }
 
-export { submitConfigSchema };
-
 export const submitConfig = authActionClient
 	.schema(submitConfigSchema)
 	.action(async ({ parsedInput, ctx: { supabase, user } }) => {
