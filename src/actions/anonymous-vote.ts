@@ -32,14 +32,28 @@ export const anonymousVote = actionClient
 		const ip_hash = crypto.createHash("sha256").update(ip).digest("hex");
 		const supabase = await createClient();
 
-		await supabase
+		// Toggle: if this IP already voted, remove the vote; otherwise add it
+		const { data: existing } = await supabase
 			.from("anonymous_votes")
-			.upsert({ config_id, ip_hash }, { onConflict: "config_id,ip_hash", ignoreDuplicates: true });
+			.select("id")
+			.eq("config_id", config_id)
+			.eq("ip_hash", ip_hash)
+			.maybeSingle();
+
+		let voted: boolean;
+
+		if (existing) {
+			await supabase.from("anonymous_votes").delete().eq("id", existing.id);
+			voted = false;
+		} else {
+			await supabase.from("anonymous_votes").insert({ config_id, ip_hash });
+			voted = true;
+		}
 
 		const { count } = await supabase
 			.from("anonymous_votes")
 			.select("*", { count: "exact", head: true })
 			.eq("config_id", config_id);
 
-		return { count: count ?? 0 };
+		return { voted, count: count ?? 0 };
 	});
