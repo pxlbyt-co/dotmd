@@ -44,6 +44,26 @@ function generateSlug(title: string): string {
 export const submitConfig = authActionClient
 	.schema(submitConfigSchema)
 	.action(async ({ parsedInput, ctx: { supabase, user } }) => {
+		// Ensure user exists in public.users (mirrors auth.users)
+		const githubUsername =
+			typeof user.user_metadata.preferred_username === "string"
+				? user.user_metadata.preferred_username
+				: (user.email ?? "anonymous");
+
+		await supabase.from("users").upsert(
+			{
+				id: user.id,
+				github_username: githubUsername,
+				display_name:
+					typeof user.user_metadata.full_name === "string"
+						? user.user_metadata.full_name
+						: githubUsername,
+				avatar_url:
+					typeof user.user_metadata.avatar_url === "string" ? user.user_metadata.avatar_url : null,
+			},
+			{ onConflict: "id", ignoreDuplicates: true },
+		);
+
 		const baseSlug = slugifyTitle(parsedInput.title);
 
 		if (!baseSlug || RESERVED_SLUGS.includes(baseSlug as (typeof RESERVED_SLUGS)[number])) {
@@ -73,10 +93,7 @@ export const submitConfig = authActionClient
 				file_type_id: parsedInput.file_type_id,
 				license: "CC0",
 				author_id: user.id,
-				author_name:
-					typeof user.user_metadata.preferred_username === "string"
-						? user.user_metadata.preferred_username
-						: (user.email ?? "anonymous"),
+				author_name: githubUsername,
 				slug,
 				status: "pending",
 			})
