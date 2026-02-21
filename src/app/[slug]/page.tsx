@@ -248,32 +248,32 @@ export default async function ConfigDetailPage({ params }: PageProps) {
 		? publishedDateFormatter.format(new Date(config.published_at))
 		: "Not published";
 	const configUrl = `https://dotmd.directory/${config.slug}`;
-	const softwareSourceCodeJsonLd = {
+	const creativeWorkJsonLd = {
 		"@context": "https://schema.org",
-		"@type": "SoftwareSourceCode",
+		"@type": "CreativeWork",
 		name: config.title,
 		description: config.description,
 		url: configUrl,
-		codeRepository: GITHUB_URL,
-		programmingLanguage: config.tools.map((tool) => tool.name),
 		license: config.license,
 		author: {
 			"@type": "Person",
 			name: config.author_name,
 		},
+		publisher: {
+			"@type": "Organization",
+			name: "dotmd",
+			url: GITHUB_URL,
+		},
 		datePublished: config.published_at ?? undefined,
-		codeSampleType: config.file_type.name,
+		keywords: [config.file_type.name, ...config.tools.map((tool) => tool.name)],
 		text: config.content,
 	};
 
-	const softwareSourceCodeJsonLdString = JSON.stringify(softwareSourceCodeJsonLd).replace(
-		/</g,
-		"\\u003c",
-	);
+	const creativeWorkJsonLdString = JSON.stringify(creativeWorkJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-			<script type="application/ld+json">{softwareSourceCodeJsonLdString}</script>
+			<script type="application/ld+json">{creativeWorkJsonLdString}</script>
 			<article className="space-y-8">
 				<header className="space-y-4">
 					<h1 className="text-h1 font-semibold text-text-primary">{config.title}</h1>

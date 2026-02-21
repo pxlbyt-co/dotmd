@@ -114,9 +114,28 @@ export default async function ToolLandingPage({ params }: PageProps) {
 	const supportedFileTypes = (toolFileTypes ?? [])
 		.flatMap((item) => (item.file_type ? [item.file_type] : []))
 		.sort((a, b) => a.name.localeCompare(b.name));
+	const itemListElements = filteredConfigs.map((config, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: config.title,
+		url: `https://dotmd.directory/${config.slug}`,
+	}));
+	const collectionPageJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "CollectionPage",
+		name: `${tool.name} configs | dotmd`,
+		description: tool.description ?? `Published configs for ${tool.name}.`,
+		url: `https://dotmd.directory/tools/${tool.slug}`,
+		mainEntity: {
+			"@type": "ItemList",
+			itemListElement: itemListElements,
+		},
+	};
+	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
+			<script type="application/ld+json">{collectionPageJsonLdString}</script>
 			<header className="space-y-3">
 				<p className="text-sm font-medium uppercase tracking-wide text-accent-primary">Tool</p>
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">

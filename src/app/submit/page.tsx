@@ -8,6 +8,10 @@ import { createClient } from "@/lib/supabase/server";
 export const metadata: Metadata = {
 	title: "Submit a config | dotmd",
 	description: "Share your AI configuration file with the dotmd community.",
+	robots: {
+		index: false,
+		follow: false,
+	},
 };
 
 export default async function SubmitPage() {
