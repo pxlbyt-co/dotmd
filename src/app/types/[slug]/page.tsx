@@ -97,9 +97,28 @@ export default async function FileTypeLandingPage({ params }: PageProps) {
 
 	const configs = await getPublishedConfigs(supabase);
 	const filteredConfigs = configs.filter((config) => config.file_type?.slug === fileType.slug);
+	const itemListElements = filteredConfigs.map((config, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: config.title,
+		url: `https://dotmd.directory/${config.slug}`,
+	}));
+	const collectionPageJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "CollectionPage",
+		name: `${fileType.name} examples and templates — dotmd`,
+		description: fileType.description ?? `Published configs for ${fileType.name}.`,
+		url: `https://dotmd.directory/types/${fileType.slug}`,
+		mainEntity: {
+			"@type": "ItemList",
+			itemListElement: itemListElements,
+		},
+	};
+	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
+			<script type="application/ld+json">{collectionPageJsonLdString}</script>
 			<header className="space-y-3">
 				<p className="text-sm font-medium uppercase tracking-wide text-accent-primary">File type</p>
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">

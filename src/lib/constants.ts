@@ -31,6 +31,7 @@ export const LICENSES = ["CC0", "MIT", "Apache-2.0"] as const;
 
 export const SITE_NAME = "dotmd";
 export const SITE_TAGLINE = "The ANYTHING.md directory for AI config files";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://dotmd.directory";
 export const GITHUB_URL = "https://github.com/pxlbyt-co/dotmd";
 export const NAV_LINKS = [
 	{ href: "/browse", label: "Browse" },

@@ -103,9 +103,28 @@ export default async function ToolTagComboPage({ params }: PageProps) {
 		const hasTag = config.tags.some((configTag) => configTag.slug === tag.slug);
 		return hasTool && hasTag;
 	});
+	const itemListElements = filteredConfigs.map((config, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: config.title,
+		url: `https://dotmd.directory/${config.slug}`,
+	}));
+	const collectionPageJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "CollectionPage",
+		name: `${tool.name} + ${tag.name} configs | dotmd`,
+		description: `Published configs for ${tool.name} focused on ${tag.name}.`,
+		url: `https://dotmd.directory/tools/${tool.slug}/${tag.slug}`,
+		mainEntity: {
+			"@type": "ItemList",
+			itemListElement: itemListElements,
+		},
+	};
+	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
+			<script type="application/ld+json">{collectionPageJsonLdString}</script>
 			<header className="space-y-3">
 				<p className="text-sm font-medium uppercase tracking-wide text-accent-primary">
 					Tool + Tag
