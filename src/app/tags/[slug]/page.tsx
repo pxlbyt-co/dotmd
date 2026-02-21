@@ -23,29 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 	const url = `https://dotmd.directory/tags/${slug}`;
 
 	if (!tag) {
-		const title = `Tag configs | ${SITE_NAME}`;
-		const description = "Browse AGENTS.md and ANYTHING.md config files by tag.";
-
-		return {
-			title,
-			description,
-			alternates: {
-				canonical: url,
-			},
-			openGraph: {
-				title,
-				description,
-				url,
-				images: [
-					{
-						url: "/opengraph-image.png",
-						width: 1200,
-						height: 630,
-						alt: title,
-					},
-				],
-			},
-		};
+		return { title: `Tag configs | ${SITE_NAME}` };
 	}
 
 	const title = `${tag.name} Templates | ${SITE_NAME}`;

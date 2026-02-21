@@ -172,12 +172,19 @@ export function generateMetadata(): Metadata {
 export default async function HomePage() {
 	const { featured, recent, tools } = await getHomepageData();
 
-	const itemListElements = [...featured, ...recent].map((config, index) => ({
-		"@type": "ListItem",
-		position: index + 1,
-		name: config.title,
-		url: `https://dotmd.directory/${config.slug}`,
-	}));
+	const seen = new Set<string>();
+	const itemListElements = [...featured, ...recent]
+		.filter((c) => {
+			if (seen.has(c.slug)) return false;
+			seen.add(c.slug);
+			return true;
+		})
+		.map((config, index) => ({
+			"@type": "ListItem",
+			position: index + 1,
+			name: config.title,
+			url: `https://dotmd.directory/${config.slug}`,
+		}));
 
 	const collectionPageJsonLd = {
 		"@context": "https://schema.org",
@@ -185,7 +192,10 @@ export default async function HomePage() {
 		name: "dotmd",
 		description: SITE_TAGLINE,
 		url: "https://dotmd.directory",
-		hasPart: itemListElements,
+		mainEntity: {
+			"@type": "ItemList",
+			itemListElement: itemListElements,
+		},
 	};
 
 	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
