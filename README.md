@@ -12,7 +12,7 @@ Browse, copy, and remix AGENTS.md, CLAUDE.md, .cursorrules, SOUL.md, and more.
 
 **[dotmd.directory](https://dotmd.directory)**
 
-<img src="docs/screenshots/homepage.png" alt="dotmd homepage" width="720" />
+<img src="docs/screenshots/homepage.png" alt="dotmd homepage screenshot" width="720" />
 
 </div>
 
@@ -25,25 +25,25 @@ Every AI coding tool has its own config format: `.cursorrules`, `CLAUDE.md`, `AG
 - **Vote** on what works with tool-specific upvotes
 - **Submit** your own configs via web form or GitHub PR
 
-<img src="docs/screenshots/browse.png" alt="Browse configs" width="720" />
+<img src="docs/screenshots/browse.png" alt="dotmd browse configs screenshot" width="720" />
 
 ## Tool Pages
 
 Each tool gets its own page with supported config file types and all available configs.
 
-<img src="docs/screenshots/tool-page.png" alt="Cursor tool page" width="720" />
+<img src="docs/screenshots/tool-page.png" alt="Cursor tool page screenshot" width="720" />
 
 ## Config Pages
 
 Each config has install instructions, tool tags, and a full preview with syntax highlighting.
 
-<img src="docs/screenshots/config-detail.png" alt="Config detail page" width="720" />
+<img src="docs/screenshots/config-detail.png" alt="dotmd config detail page screenshot" width="720" />
 
 ## Submit Your Own
 
 Share your configs with the community. Submissions are reviewed before publishing.
 
-<img src="docs/screenshots/submit.png" alt="Submit a config" width="720" />
+<img src="docs/screenshots/submit.png" alt="dotmd submit config screenshot" width="720" />
 
 ## Tech Stack
 

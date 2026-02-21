@@ -3,11 +3,15 @@ import Link from "next/link";
 
 import { LoginButton } from "@/components/auth/LoginButton";
 import { ConfigSubmitForm } from "@/components/configs/ConfigSubmitForm";
+import { SITE_URL } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
 	title: "Submit a config | dotmd",
 	description: "Share your AI configuration file with the dotmd community.",
+	alternates: {
+		canonical: `${SITE_URL}/submit`,
+	},
 	robots: {
 		index: false,
 		follow: false,

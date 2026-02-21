@@ -5,7 +5,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/constants";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 
 import "./globals.css";
 
@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "dotmd — ANYTHING.md directory",
 	description: "Browse, share, and remix AGENTS.md, SOUL.md, and every agent config in one place.",
-	metadataBase: new URL("https://dotmd.directory"),
+	metadataBase: new URL(SITE_URL),
 	robots: {
 		index: true,
 		follow: true,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 		siteName: SITE_NAME,
 		title: "dotmd — ANYTHING.md directory",
 		description: SITE_TAGLINE,
-		url: "https://dotmd.directory",
+		url: SITE_URL,
 		images: [
 			{
 				url: "/opengraph-image.png",
@@ -56,12 +56,22 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+	const websiteJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: SITE_NAME,
+		description: SITE_TAGLINE,
+		url: SITE_URL,
+	};
+	const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
+
 	return (
 		<html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
 			<head>
 				<meta name="color-scheme" content="dark" />
 			</head>
 			<body className="min-h-screen bg-bg-base font-sans text-text-primary antialiased">
+				<script type="application/ld+json">{websiteJsonLdString}</script>
 				<NuqsAdapter>
 					<div className="flex min-h-screen flex-col">
 						<Header />
