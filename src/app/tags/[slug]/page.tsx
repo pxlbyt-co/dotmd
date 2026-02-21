@@ -20,14 +20,56 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
 	const { slug } = await params;
 	const tag = TAGS.find((item) => item.slug === slug);
+	const url = `https://dotmd.directory/tags/${slug}`;
 
 	if (!tag) {
-		return { title: `Tag configs | ${SITE_NAME}` };
+		const title = `Tag configs | ${SITE_NAME}`;
+		const description = "Browse AGENTS.md and ANYTHING.md config files by tag.";
+
+		return {
+			title,
+			description,
+			alternates: {
+				canonical: url,
+			},
+			openGraph: {
+				title,
+				description,
+				url,
+				images: [
+					{
+						url: "/opengraph-image.png",
+						width: 1200,
+						height: 630,
+						alt: title,
+					},
+				],
+			},
+		};
 	}
 
+	const title = `${tag.name} Templates | ${SITE_NAME}`;
+	const description = `Browse the best AGENTS.md and ANYTHING.md config files tagged with ${tag.name}.`;
+
 	return {
-		title: `${tag.name} Templates | ${SITE_NAME}`,
-		description: `Browse the best AGENTS.md and ANYTHING.md config files tagged with ${tag.name}.`,
+		title,
+		description,
+		alternates: {
+			canonical: url,
+		},
+		openGraph: {
+			title,
+			description,
+			url,
+			images: [
+				{
+					url: "/opengraph-image.png",
+					width: 1200,
+					height: 630,
+					alt: title,
+				},
+			],
+		},
 	};
 }
 
@@ -44,9 +86,28 @@ export default async function TagPage({ params }: PageProps) {
 	const filteredConfigs = allConfigs.filter((config) =>
 		config.tags.some((configTag) => configTag.slug === tag.slug),
 	);
+	const itemListElements = filteredConfigs.map((config, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: config.title,
+		url: `https://dotmd.directory/${config.slug}`,
+	}));
+	const collectionPageJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "CollectionPage",
+		name: `${tag.name} templates | dotmd`,
+		description: `Published configs tagged with ${tag.name}.`,
+		url: `https://dotmd.directory/tags/${tag.slug}`,
+		mainEntity: {
+			"@type": "ItemList",
+			itemListElement: itemListElements,
+		},
+	};
+	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
+			<script type="application/ld+json">{collectionPageJsonLdString}</script>
 			<header className="space-y-3">
 				<p className="text-sm font-medium uppercase tracking-wide text-accent-primary">Tag</p>
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">

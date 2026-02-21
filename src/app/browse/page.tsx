@@ -330,9 +330,28 @@ export default async function BrowsePage({ searchParams }: PageProps) {
 	const currentPage = Math.min(requestedPage, totalPages);
 	const start = (currentPage - 1) * PAGE_SIZE;
 	const pageConfigs = sortedConfigs.slice(start, start + PAGE_SIZE);
+	const itemListElements = pageConfigs.map((config, index) => ({
+		"@type": "ListItem",
+		position: start + index + 1,
+		name: config.title,
+		url: `https://dotmd.directory/${config.slug}`,
+	}));
+	const collectionPageJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "CollectionPage",
+		name: "Browse configs | dotmd",
+		description: "Browse published AI config files by tool, tag, and popularity.",
+		url: "https://dotmd.directory/browse",
+		mainEntity: {
+			"@type": "ItemList",
+			itemListElement: itemListElements,
+		},
+	};
+	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-[1440px] px-4 py-8 sm:px-6 lg:px-8">
+			<script type="application/ld+json">{collectionPageJsonLdString}</script>
 			<div className="mb-8 space-y-2">
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary">Browse configs</h1>
 				<p className="text-sm text-text-secondary">

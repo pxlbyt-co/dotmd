@@ -172,8 +172,27 @@ export function generateMetadata(): Metadata {
 export default async function HomePage() {
 	const { featured, recent, tools } = await getHomepageData();
 
+	const itemListElements = [...featured, ...recent].map((config, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: config.title,
+		url: `https://dotmd.directory/${config.slug}`,
+	}));
+
+	const collectionPageJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "CollectionPage",
+		name: "dotmd",
+		description: SITE_TAGLINE,
+		url: "https://dotmd.directory",
+		hasPart: itemListElements,
+	};
+
+	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
+
 	return (
 		<div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+			<script type="application/ld+json">{collectionPageJsonLdString}</script>
 			<section className="text-center">
 				<p className="text-base font-semibold uppercase tracking-[0.2em] text-accent-primary">
 					dotmd
