@@ -34,3 +34,59 @@ jobs:
           NEXT_PUBLIC_SITE_URL: https://dotmd.directory
           REVALIDATION_SECRET: placeholder_secret
         run: bun run build
+
+  db-config-tool-compatibility:
+    name: DB config_tools compatibility check
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: dotmd_test
+        options: >-
+          --health-cmd="pg_isready -U postgres -d dotmd_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/dotmd_test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Apply Supabase migrations
+        run: |
+          set -euo pipefail
+          for file in $(ls supabase/migrations/*.sql | sort); do
+            echo "Applying $file"
+            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$file"
+          done
+
+      - name: Assert config_tools compatibility
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          DO $$
+          DECLARE
+            invalid_count int;
+          BEGIN
+            SELECT count(*)
+              INTO invalid_count
+            FROM config_tools ct
+            JOIN configs c ON c.id = ct.config_id
+            LEFT JOIN tool_file_types tft
+              ON tft.tool_id = ct.tool_id
+             AND tft.file_type_id = c.file_type_id
+            WHERE tft.tool_id IS NULL;
+
+            IF invalid_count > 0 THEN
+              RAISE EXCEPTION 'config_tools compatibility assertion failed: % invalid rows', invalid_count;
+            END IF;
+          END $$;
+          SQL
