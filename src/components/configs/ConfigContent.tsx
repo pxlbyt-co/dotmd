@@ -36,11 +36,15 @@ export function ConfigContent({ content, fileName }: ConfigContentProps) {
 					{lines.map((line, i) => {
 						const lineKey = `line-${i}`;
 						return (
-							<div key={lineKey} className="flex">
+							<div key={lineKey} className="flex items-start">
 								<span className="mr-4 inline-block w-8 shrink-0 select-none text-right text-text-placeholder">
 									{i + 1}
 								</span>
-								<span className={classifyLine(line)}>{line || " "}</span>
+								<span
+									className={`min-w-0 flex-1 whitespace-pre-wrap break-words ${classifyLine(line)}`}
+								>
+									{line || " "}
+								</span>
 							</div>
 						);
 					})}
