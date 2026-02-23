@@ -72,6 +72,26 @@ jobs:
           echo "Postgres not ready in time"
           exit 1
 
+      - name: Bootstrap Supabase auth schema stubs
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          CREATE SCHEMA IF NOT EXISTS auth;
+
+          CREATE OR REPLACE FUNCTION auth.uid()
+          RETURNS uuid
+          LANGUAGE sql
+          STABLE
+          AS $$
+            SELECT NULL::uuid;
+          $$;
+
+          CREATE TABLE IF NOT EXISTS auth.users (
+            id uuid PRIMARY KEY,
+            raw_user_meta_data jsonb,
+            email text
+          );
+          SQL
+
       - name: Apply Supabase migrations
         run: |
           set -euo pipefail
