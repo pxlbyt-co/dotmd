@@ -8,11 +8,13 @@ begin;
 -- 1) Remove any existing invalid config_tools links.
 delete from config_tools ct
 using configs c
-left join tool_file_types tft
-  on tft.tool_id = ct.tool_id
- and tft.file_type_id = c.file_type_id
 where ct.config_id = c.id
-  and tft.tool_id is null;
+  and not exists (
+    select 1
+    from tool_file_types tft
+    where tft.tool_id = ct.tool_id
+      and tft.file_type_id = c.file_type_id
+  );
 
 -- 2) Assert database has no invalid config_tools links.
 do $$
