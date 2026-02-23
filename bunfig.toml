@@ -1,5 +1,5 @@
 [test]
-preload = ["./test/setup.ts"]
+preload = ["./test/register-dom.ts", "./test/setup.ts"]
 coverageSkipTestFiles = true
 coverageThreshold = { lines = 0.25, functions = 0.25, statements = 0.25 }
 coverageReporter = ["text", "lcov"]
