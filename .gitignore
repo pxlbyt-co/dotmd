@@ -5,6 +5,7 @@ node_modules
 .DS_Store
 next-env.d.ts
 tsconfig.tsbuildinfo
+coverage
 -e 
 # Supabase CLI temp files
 supabase/.temp/
