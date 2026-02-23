@@ -7,7 +7,7 @@
     "website_url": "https://cursor.com",
     "icon_slug": "cursor",
     "sort_order": 1,
-    "primary_files": [".cursorrules", "AGENTS.md", ".cursor/rules/*.mdc"]
+    "primary_files": ["AGENTS.md", ".cursor/rules/*.mdc"]
   },
   {
     "id": "00000000-0000-0000-0000-000000000102",
@@ -73,11 +73,11 @@
     "id": "00000000-0000-0000-0000-000000000107",
     "slug": "google-jules",
     "name": "Google Jules",
-    "description": "Google's coding agent workflow guided by JULES.md.",
+    "description": "Google's autonomous coding agent, configured via AGENTS.md.",
     "website_url": "https://jules.google.com",
     "icon_slug": "google-jules",
     "sort_order": 8,
-    "primary_files": ["JULES.md"]
+    "primary_files": ["AGENTS.md"]
   },
   {
     "id": "00000000-0000-0000-0000-000000000108",
