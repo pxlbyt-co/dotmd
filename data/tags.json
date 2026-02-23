@@ -35,6 +35,27 @@
     "sort_order": 5
   },
   {
+    "id": "00000000-0000-0000-0000-000000000316",
+    "slug": "fastapi",
+    "name": "FastAPI",
+    "category": "framework",
+    "sort_order": 6
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000317",
+    "slug": "vite",
+    "name": "Vite",
+    "category": "framework",
+    "sort_order": 7
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000318",
+    "slug": "supabase",
+    "name": "Supabase",
+    "category": "framework",
+    "sort_order": 8
+  },
+  {
     "id": "00000000-0000-0000-0000-000000000306",
     "slug": "typescript",
     "name": "TypeScript",
@@ -70,6 +91,13 @@
     "sort_order": 5
   },
   {
+    "id": "00000000-0000-0000-0000-000000000322",
+    "slug": "java",
+    "name": "Java",
+    "category": "language",
+    "sort_order": 6
+  },
+  {
     "id": "00000000-0000-0000-0000-000000000311",
     "slug": "testing",
     "name": "Testing",
@@ -103,5 +131,26 @@
     "name": "Refactoring",
     "category": "use_case",
     "sort_order": 5
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000319",
+    "slug": "security",
+    "name": "Security",
+    "category": "use_case",
+    "sort_order": 6
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000320",
+    "slug": "ai-ml",
+    "name": "AI/ML",
+    "category": "use_case",
+    "sort_order": 7
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000321",
+    "slug": "persona",
+    "name": "Persona",
+    "category": "use_case",
+    "sort_order": 8
   }
 ]
