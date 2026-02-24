@@ -6,6 +6,10 @@ node_modules
 next-env.d.ts
 tsconfig.tsbuildinfo
 coverage
+playwright-report
+test-results
+.playwright-browsers
+.tmp
 -e 
 # Supabase CLI temp files
 supabase/.temp/
