@@ -28,5 +28,5 @@ test("submit route renders auth gate or submission form", async ({ page }) => {
 	}
 
 	await expect(page.getByRole("heading", { name: "Sign in to submit" })).toBeVisible();
-	await expect(page.getByRole("main").getByRole("button", { name: "Sign in" })).toBeVisible();
+	await expect(page.getByRole("main").getByRole("button", { name: "[auth login]" })).toBeVisible();
 });

@@ -2,9 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Suspense } from "react";
 
-import { QuickViewDrawer } from "@/components/configs/QuickViewDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
@@ -12,88 +10,77 @@ import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
+	subsets: ["latin"],
+	variable: "--font-geist-sans",
 });
 
 const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
+	subsets: ["latin"],
+	variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
-  title: "dotmd — ANYTHING.md directory",
-  description:
-    "Browse, share, and remix AGENTS.md, SOUL.md, and every agent config in one place.",
-  metadataBase: new URL(SITE_URL),
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    siteName: SITE_NAME,
-    title: "dotmd — ANYTHING.md directory",
-    description: SITE_TAGLINE,
-    url: SITE_URL,
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "dotmd — ANYTHING.md directory",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "dotmd — ANYTHING.md directory",
-    description: SITE_TAGLINE,
-    images: ["/opengraph-image.png"],
-  },
+	title: "dotmd — ANYTHING.md directory",
+	description: "Browse, share, and remix AGENTS.md, SOUL.md, and every agent config in one place.",
+	metadataBase: new URL(SITE_URL),
+	robots: {
+		index: true,
+		follow: true,
+	},
+	openGraph: {
+		type: "website",
+		locale: "en_US",
+		siteName: SITE_NAME,
+		title: "dotmd — ANYTHING.md directory",
+		description: SITE_TAGLINE,
+		url: SITE_URL,
+		images: [
+			{
+				url: "/opengraph-image.png",
+				width: 1200,
+				height: 630,
+				alt: "dotmd — ANYTHING.md directory",
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "dotmd — ANYTHING.md directory",
+		description: SITE_TAGLINE,
+		images: ["/opengraph-image.png"],
+	},
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const websiteJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_NAME,
-    description: SITE_TAGLINE,
-    url: SITE_URL,
-  };
-  const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(
-    /</g,
-    "\\u003c",
-  );
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+	const websiteJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: SITE_NAME,
+		description: SITE_TAGLINE,
+		url: SITE_URL,
+	};
+	const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
 
-  return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
-    >
-      <head>
-        <meta name="color-scheme" content="dark" />
-      </head>
-      <body className="min-h-screen bg-bg-base font-sans text-text-primary antialiased">
-        <script type="application/ld+json">{websiteJsonLdString}</script>
-        <NuqsAdapter>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <Suspense fallback={null}>
-            <QuickViewDrawer />
-          </Suspense>
-        </NuqsAdapter>
-        <Analytics />
-      </body>
-    </html>
-  );
+	return (
+		<html
+			lang="en"
+			className={`${geistSans.variable} ${geistMono.variable}`}
+			suppressHydrationWarning
+		>
+			<head>
+				<meta name="color-scheme" content="dark" />
+			</head>
+			<body className="min-h-screen bg-bg-base font-sans text-text-primary antialiased">
+				<script type="application/ld+json">{websiteJsonLdString}</script>
+				<NuqsAdapter>
+					<div className="flex min-h-screen flex-col">
+						<Header />
+						<main className="flex-1">{children}</main>
+						<Footer />
+					</div>
+				</NuqsAdapter>
+				<Analytics />
+			</body>
+		</html>
+	);
 }
