@@ -30,15 +30,38 @@ export function SearchBar({
 	const inputId = useId();
 	const [value, setValue] = useState(query);
 	const lastNavigatedUrl = useRef(buildSearchUrl(query));
+	const isHero = variant === "hero";
+
+	const buildCompactUrl = useCallback((nextQuery: string) => {
+		if (typeof window === "undefined") {
+			return buildSearchUrl(nextQuery);
+		}
+
+		const params = new URLSearchParams(window.location.search);
+		const trimmedQuery = nextQuery.trim();
+
+		if (trimmedQuery) {
+			params.set("q", trimmedQuery);
+		} else {
+			params.delete("q");
+		}
+
+		params.delete("page");
+
+		const nextQueryString = params.toString();
+		return nextQueryString
+			? `${window.location.pathname}?${nextQueryString}`
+			: window.location.pathname;
+	}, []);
 
 	useEffect(() => {
 		setValue(query);
-		lastNavigatedUrl.current = buildSearchUrl(query);
-	}, [query]);
+		lastNavigatedUrl.current = isHero ? buildSearchUrl(query) : buildCompactUrl(query);
+	}, [buildCompactUrl, isHero, query]);
 
 	const navigateToSearch = useCallback(
 		(nextQuery: string) => {
-			const nextUrl = buildSearchUrl(nextQuery);
+			const nextUrl = isHero ? buildSearchUrl(nextQuery) : buildCompactUrl(nextQuery);
 
 			if (nextUrl === lastNavigatedUrl.current) {
 				return;
@@ -47,10 +70,14 @@ export function SearchBar({
 			lastNavigatedUrl.current = nextUrl;
 			router.push(nextUrl);
 		},
-		[router],
+		[buildCompactUrl, isHero, router],
 	);
 
 	useEffect(() => {
+		if (isHero) {
+			return;
+		}
+
 		const timeoutId = window.setTimeout(() => {
 			navigateToSearch(value);
 		}, debounceMs);
@@ -58,14 +85,12 @@ export function SearchBar({
 		return () => {
 			window.clearTimeout(timeoutId);
 		};
-	}, [debounceMs, navigateToSearch, value]);
+	}, [debounceMs, isHero, navigateToSearch, value]);
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		navigateToSearch(value);
 	};
-
-	const isHero = variant === "hero";
 
 	return (
 		<search className={cn("relative w-full", isHero ? "mx-auto max-w-2xl" : "max-w-md", className)}>
