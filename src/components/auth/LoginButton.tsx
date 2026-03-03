@@ -1,7 +1,7 @@
 "use client";
 
 import type { User } from "@supabase/supabase-js";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Github } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -106,12 +106,17 @@ export function LoginButton({ className }: LoginButtonProps) {
 			<Button
 				type="button"
 				variant="outline"
-				className={cn("text-text-primary", mergedClassName)}
+				size="sm"
+				className={cn(
+					"group font-mono text-xs font-medium text-text-secondary bg-bg-surface-0 border-border-default transition-all duration-200 hover:bg-bg-surface-1 hover:text-text-primary hover:border-accent-primary/40 focus-visible:ring-1 focus-visible:ring-accent-primary",
+					mergedClassName,
+				)}
 				onClick={() => {
 					void handleSignIn();
 				}}
 			>
-				Sign in
+				<Github className="mr-2 h-3.5 w-3.5 opacity-70 group-hover:opacity-100 group-hover:text-accent-primary transition-all" />
+				<span>[auth login]</span>
 			</Button>
 		);
 	}
@@ -122,27 +127,46 @@ export function LoginButton({ className }: LoginButtonProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button type="button" variant="outline" className={cn("gap-2", mergedClassName)}>
+				<Button
+					type="button"
+					variant="outline"
+					size="sm"
+					className={cn(
+						"group gap-2 font-mono text-xs border-border-default bg-bg-surface-0 hover:bg-bg-surface-1 hover:border-accent-primary/40 transition-all duration-200 focus-visible:ring-1 focus-visible:ring-accent-primary",
+						mergedClassName,
+					)}
+				>
 					{avatarUrl ? (
 						// biome-ignore lint/performance/noImgElement: OAuth avatar URLs are remote and user-provided.
-						<img src={avatarUrl} alt={displayName} className="size-6 rounded-full" />
+						<img
+							src={avatarUrl}
+							alt={displayName}
+							className="size-4 rounded-[4px] opacity-80 group-hover:opacity-100 transition-opacity"
+						/>
 					) : (
-						<span className="inline-flex size-6 items-center justify-center rounded-full bg-bg-surface-3 text-xs font-semibold text-text-primary">
+						<span className="inline-flex size-4 items-center justify-center rounded-[4px] bg-bg-surface-3 text-[9px] font-bold text-text-secondary group-hover:text-text-primary transition-colors">
 							{getInitial(user)}
 						</span>
 					)}
-					<span className="max-w-28 truncate">{displayName}</span>
-					<ChevronDown className="size-4 text-text-secondary" />
+					<span className="max-w-28 truncate text-text-secondary group-hover:text-text-primary transition-colors">
+						@{displayName.toLowerCase()}
+					</span>
+					<ChevronDown className="size-3 text-text-tertiary transition-transform group-data-[state=open]:rotate-180" />
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end">
+			<DropdownMenuContent
+				align="end"
+				className="min-w-[8rem] rounded-md border border-border-default bg-bg-surface-1 font-mono p-1 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+			>
 				<DropdownMenuItem
+					className="cursor-pointer rounded-[4px] px-2 py-1.5 text-xs text-text-secondary transition-colors focus:bg-bg-surface-2 focus:text-accent-primary focus:outline-none"
 					onSelect={(event) => {
 						event.preventDefault();
 						void handleSignOut();
 					}}
 				>
-					Sign out
+					<span className="mr-2 text-accent-primary/50">&gt;</span>
+					exit()
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

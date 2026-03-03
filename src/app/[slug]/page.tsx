@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 
 import { ConfigContent } from "@/components/configs/ConfigContent";
 import { InstallPaths } from "@/components/configs/InstallPaths";
-import { Badge } from "@/components/ui/badge";
 import { HelpfulButton } from "@/components/votes/HelpfulButton";
 import { VoteButton } from "@/components/votes/VoteButton";
 import { GITHUB_URL } from "@/lib/constants";
@@ -272,101 +271,161 @@ export default async function ConfigDetailPage({ params }: PageProps) {
 	const creativeWorkJsonLdString = JSON.stringify(creativeWorkJsonLd).replace(/</g, "\\u003c");
 
 	return (
-		<div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+		<div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
 			<script type="application/ld+json">{creativeWorkJsonLdString}</script>
-			<article className="space-y-8">
-				<header className="space-y-4">
-					<h1 className="text-h1 font-semibold text-text-primary">{config.title}</h1>
-					<p className="max-w-3xl text-body text-text-secondary">{config.description}</p>
-					<div className="flex flex-wrap items-center gap-3 text-body-sm text-text-secondary">
-						{config.author?.avatar_url ? (
-							<span
-								role="img"
-								aria-label={authorLabel}
-								className="h-6 w-6 rounded-full border border-border-default bg-cover bg-center"
-								style={{ backgroundImage: `url(${config.author.avatar_url})` }}
-							/>
-						) : null}
-						<span>By {authorLabel}</span>
-						<Badge variant="outline">{config.license}</Badge>
-						<span>Published {publishedLabel}</span>
+			<article className="space-y-10">
+				<header className="space-y-6 border-b border-border-default pb-8">
+					<div className="space-y-3">
+						<div className="flex items-center gap-2 text-text-tertiary mb-4">
+							<span className="font-mono text-xs uppercase tracking-widest">
+								{"// Config Record"}
+							</span>
+						</div>
+						<h1 className="font-mono text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+							<span className="text-accent-primary mr-3">&gt;</span>
+							{config.title}
+						</h1>
+						<p className="max-w-3xl font-mono text-sm leading-relaxed text-text-secondary sm:text-base pl-6">
+							{config.description}
+						</p>
+					</div>
+
+					<div className="flex flex-wrap items-center gap-6 pl-6 text-xs font-mono text-text-secondary">
+						<div className="flex items-center gap-2">
+							<span className="text-accent-secondary">author:</span>
+							<div className="flex items-center gap-2">
+								{config.author?.avatar_url ? (
+									<span
+										role="img"
+										aria-label={authorLabel}
+										className="h-5 w-5 rounded-[4px] border border-border-subtle bg-cover bg-center"
+										style={{
+											backgroundImage: `url(${config.author.avatar_url})`,
+										}}
+									/>
+								) : null}
+								<span className="text-text-primary">{authorLabel}</span>
+							</div>
+						</div>
+						<div className="flex items-center gap-2">
+							<span className="text-accent-secondary">license:</span>
+							<span className="rounded border border-border-subtle bg-bg-surface-0 px-1.5 py-0.5 text-text-primary">
+								{config.license}
+							</span>
+						</div>
+						<div className="flex items-center gap-2">
+							<span className="text-accent-secondary">published:</span>
+							<span className="text-text-primary">{publishedLabel}</span>
+						</div>
 						{config.source_url ? (
-							<a
-								href={config.source_url}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="text-accent-primary hover:underline"
-							>
-								View source ↗
-							</a>
+							<div className="flex items-center gap-2">
+								<span className="text-accent-secondary">source:</span>
+								<a
+									href={config.source_url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="text-accent-primary transition-colors hover:text-accent-primary-hover hover:underline"
+								>
+									[view_repository]
+								</a>
+							</div>
 						) : null}
 					</div>
 				</header>
 
-				<section className="space-y-3">
-					<div className="flex flex-wrap gap-2">
-						{config.tools.map((tool) => (
-							<Badge key={tool.slug} variant="outline" asChild>
-								<Link href={`/tools/${tool.slug}`}>{tool.name}</Link>
-							</Badge>
-						))}
-					</div>
-					<div className="flex flex-wrap gap-2">
-						{config.tags.map((tag) => (
-							<Badge key={tag.slug} variant="secondary" asChild>
-								<Link href={`/tags/${tag.slug}`}>
-									{tag.name} · {tag.category.replace("_", " ")}
-								</Link>
-							</Badge>
-						))}
-					</div>
-				</section>
+				<div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+					<div className="space-y-10 lg:col-span-2">
+						<section className="space-y-4">
+							<InstallPaths
+								tools={config.tools}
+								fileTypeName={config.file_type.name}
+								defaultPath={config.file_type.default_path}
+							/>
+						</section>
 
-				<InstallPaths
-					tools={config.tools}
-					fileTypeName={config.file_type.name}
-					defaultPath={config.file_type.default_path}
-				/>
-
-				<section className="space-y-3">
-					<h2 className="text-h3 font-semibold text-text-primary">Configuration</h2>
-					<ConfigContent content={config.content} fileName={config.file_type.name} />
-				</section>
-
-				<section className="space-y-4 rounded-xl border border-border-default bg-bg-surface-1 p-4 sm:p-5">
-					<div className="flex flex-wrap items-center justify-between gap-3">
-						<div>
-							<h2 className="text-h4 font-semibold text-text-primary">Community feedback</h2>
-							<p className="text-body-sm text-text-secondary">
-								{helpfulCount ?? 0} found this helpful
-							</p>
-						</div>
-						<HelpfulButton configId={config.id} count={helpfulCount ?? 0} />
+						<section className="space-y-4">
+							<div className="flex items-center gap-2">
+								<span className="font-mono text-xs font-medium uppercase tracking-widest text-text-tertiary">
+									{"// File Content"}
+								</span>
+							</div>
+							<ConfigContent content={config.content} fileName={config.file_type.name} />
+						</section>
 					</div>
-					<div className="space-y-2">
-						<p className="text-body-sm text-text-secondary">Works with:</p>
-						<div className="flex flex-wrap gap-2">
-							{config.tools.map((tool) => {
-								const voteData = toolVoteData.get(tool.slug);
-								if (!voteData) {
-									return null;
-								}
 
-								return (
-									<VoteButton
-										key={tool.slug}
-										configId={config.id}
-										toolId={voteData.toolId}
-										toolName={tool.name}
-										count={voteData.count}
-										userVoted={voteData.userVoted}
-										isLoggedIn={isLoggedIn}
-									/>
-								);
-							})}
-						</div>
-					</div>
-				</section>
+					<aside className="space-y-8">
+						<section className="rounded-lg border border-border-default bg-bg-surface-0 p-5 shadow-sm">
+							<h3 className="mb-4 font-mono text-xs font-medium uppercase tracking-widest text-text-tertiary">
+								{"// Environment"}
+							</h3>
+							<div className="space-y-5">
+								<div>
+									<p className="mb-3 font-mono text-xs text-text-secondary">Target Tools:</p>
+									<div className="flex flex-wrap gap-2">
+										{config.tools.map((tool) => (
+											<Link
+												key={tool.slug}
+												href={`/tools/${tool.slug}`}
+												className="rounded border border-border-subtle bg-bg-surface-1 px-2.5 py-1.5 font-mono text-xs text-text-secondary transition-colors hover:border-accent-primary/50 hover:text-accent-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-primary"
+											>
+												{tool.name}
+											</Link>
+										))}
+									</div>
+								</div>
+								<div>
+									<p className="mb-3 font-mono text-xs text-text-secondary">Keywords:</p>
+									<div className="flex flex-wrap gap-2">
+										{config.tags.map((tag) => (
+											<Link
+												key={tag.slug}
+												href={`/tags/${tag.slug}`}
+												className="rounded border border-border-subtle bg-bg-surface-2 px-2.5 py-1 font-mono text-[10px] text-text-secondary transition-colors hover:border-border-default hover:text-text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-primary"
+											>
+												{tag.name}
+											</Link>
+										))}
+									</div>
+								</div>
+							</div>
+						</section>
+
+						<section className="rounded-lg border border-border-default bg-bg-surface-0 p-5 shadow-sm">
+							<div className="mb-4 space-y-1 border-b border-border-subtle pb-4">
+								<h3 className="font-mono text-xs font-medium uppercase tracking-widest text-text-tertiary">
+									{"// Diagnostics"}
+								</h3>
+								<div className="mt-4 flex items-center justify-between gap-3">
+									<p className="font-mono text-xs text-text-secondary">Helpful rating:</p>
+									<HelpfulButton configId={config.id} count={helpfulCount ?? 0} />
+								</div>
+							</div>
+							<div className="space-y-4">
+								<p className="font-mono text-xs text-text-secondary">Verified compatible with:</p>
+								<div className="flex flex-wrap gap-2">
+									{config.tools.map((tool) => {
+										const voteData = toolVoteData.get(tool.slug);
+										if (!voteData) {
+											return null;
+										}
+
+										return (
+											<VoteButton
+												key={tool.slug}
+												configId={config.id}
+												toolId={voteData.toolId}
+												toolName={tool.name}
+												count={voteData.count}
+												userVoted={voteData.userVoted}
+												isLoggedIn={isLoggedIn}
+											/>
+										);
+									})}
+								</div>
+							</div>
+						</section>
+					</aside>
+				</div>
 			</article>
 		</div>
 	);

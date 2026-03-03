@@ -10,6 +10,6 @@ test("browse list opens config detail page", async ({ page }) => {
 
 	await expect(page).toHaveURL(/\/cursor-react-starter$/);
 	await expect(page.getByRole("heading", { name: "Cursor React Starter" })).toBeVisible();
-	await expect(page.getByText("Community feedback")).toBeVisible();
-	await expect(page.getByText("Configuration")).toBeVisible();
+	await expect(page.getByText("Diagnostics")).toBeVisible();
+	await expect(page.getByText("File Content")).toBeVisible();
 });

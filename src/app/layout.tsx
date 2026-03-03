@@ -27,10 +27,6 @@ export const metadata: Metadata = {
 		index: true,
 		follow: true,
 	},
-	icons: {
-		icon: "/favicon.ico",
-		apple: "/apple-touch-icon.png",
-	},
 	openGraph: {
 		type: "website",
 		locale: "en_US",
@@ -66,7 +62,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
 
 	return (
-		<html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+		<html
+			lang="en"
+			className={`${geistSans.variable} ${geistMono.variable}`}
+			suppressHydrationWarning
+		>
 			<head>
 				<meta name="color-scheme" content="dark" />
 			</head>

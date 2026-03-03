@@ -22,7 +22,7 @@ export function SearchBar({
 	query = "",
 	variant = "hero",
 	className,
-	placeholder = "Search configs, tools, frameworks…",
+	placeholder = "Search configs...",
 	label = "Search configs",
 	debounceMs = 300,
 }: SearchBarProps) {
@@ -69,7 +69,7 @@ export function SearchBar({
 
 	return (
 		<search className={cn("relative w-full", isHero ? "mx-auto max-w-2xl" : "max-w-md", className)}>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} className="group relative">
 				<label htmlFor={inputId} className="sr-only">
 					{label}
 				</label>
@@ -77,7 +77,7 @@ export function SearchBar({
 				<Search
 					aria-hidden="true"
 					className={cn(
-						"pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary",
+						"pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-text-secondary transition-colors group-focus-within:text-accent-primary",
 						isHero ? "h-5 w-5" : "h-4 w-4",
 					)}
 				/>
@@ -90,12 +90,20 @@ export function SearchBar({
 					placeholder={placeholder}
 					aria-label={label}
 					className={cn(
-						"border-border-default bg-bg-surface-1 pr-10 pl-11 text-text-primary placeholder:text-text-placeholder",
+						"font-mono border-border-default bg-bg-surface-0 pr-16 pl-12 text-text-primary placeholder:text-text-placeholder transition-all duration-200 focus-visible:border-accent-primary/50 focus-visible:ring-1 focus-visible:ring-accent-primary focus-visible:ring-offset-0",
 						isHero
-							? "h-14 rounded-xl text-base shadow-[0_0_0_1px_var(--border-subtle)]"
-							: "h-10 rounded-lg text-sm",
+							? "h-14 rounded-lg text-sm shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:border-border-strong hover:bg-bg-surface-1"
+							: "h-10 rounded-md text-xs",
 					)}
 				/>
+
+				{!value.trim() && isHero ? (
+					<div className="pointer-events-none absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-1">
+						<kbd className="hidden h-6 items-center gap-1 rounded border border-border-default bg-bg-surface-1 px-2 font-mono text-[10px] font-medium text-text-tertiary sm:inline-flex">
+							<span className="text-xs">⌘</span>K
+						</kbd>
+					</div>
+				) : null}
 
 				{value.trim() ? (
 					<Button
@@ -106,7 +114,7 @@ export function SearchBar({
 							setValue("");
 							navigateToSearch("");
 						}}
-						className="absolute top-1/2 right-1 -translate-y-1/2 text-text-secondary hover:text-text-primary"
+						className="absolute top-1/2 right-2 -translate-y-1/2 text-text-secondary hover:text-accent-primary hover:bg-transparent"
 						aria-label="Clear search"
 					>
 						<X className="h-4 w-4" />

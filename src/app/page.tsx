@@ -201,68 +201,67 @@ export default async function HomePage() {
 	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
 
 	return (
-		<div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+		<div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
 			<script type="application/ld+json">{collectionPageJsonLdString}</script>
-			<section className="text-center">
-				<p className="text-base font-semibold uppercase tracking-[0.2em] text-accent-primary">
-					dotmd
-				</p>
-				<h1 className="mx-auto mt-4 max-w-3xl text-4xl font-bold tracking-tight text-text-primary sm:text-5xl">
+			<section className="flex flex-col items-center text-center">
+				<div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border-default bg-bg-surface-1 px-3 py-1 shadow-sm">
+					<span className="flex h-2 w-2 rounded-full bg-accent-primary animate-pulse" />
+					<span className="font-mono text-xs text-text-secondary uppercase tracking-widest">
+						Registry Online
+					</span>
+				</div>
+				<h1 className="mx-auto mt-2 max-w-4xl text-4xl font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
 					{SITE_TAGLINE}
 				</h1>
-				<p className="mx-auto mt-4 max-w-2xl text-base text-text-secondary sm:text-lg">
+				<p className="mx-auto mt-6 max-w-2xl font-mono text-sm text-text-secondary sm:text-base leading-relaxed">
+					<span className="text-accent-primary mr-2">&gt;</span>
 					Browse, copy, and remix AGENTS.md, SOUL.md, USER.md, CLAUDE.md, .cursorrules, and more.
 				</p>
-				<div className="mx-auto mt-8 w-full max-w-2xl">
+				<div className="mx-auto mt-10 w-full max-w-2xl">
 					<SearchBar />
 				</div>
-				<div className="mx-auto mt-6 h-px w-16 bg-accent-primary" />
 			</section>
 
-			<section className="mt-12 border-y border-border-subtle py-8 sm:mt-16">
-				<p className="text-xs font-medium uppercase tracking-widest text-accent-primary">Explore</p>
-				<h2 className="mt-1 text-2xl font-semibold tracking-tight text-text-primary">
-					Browse by Tool
-				</h2>
-				<div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			<section className="mt-20 sm:mt-28">
+				<p className="font-mono text-xs font-medium uppercase tracking-widest text-text-tertiary mb-4">
+					{"// Browse by Tool"}
+				</p>
+				<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
 					{tools.length === 0 ? (
-						<div className="col-span-full rounded-xl border border-dashed border-border-default bg-bg-surface-1 px-6 py-12 text-center">
-							<p className="text-sm text-text-secondary">
-								No tools available yet. Published tools will appear here.
-							</p>
+						<div className="col-span-full rounded-lg border border-dashed border-border-default bg-bg-surface-0 px-6 py-8 text-center">
+							<p className="font-mono text-xs text-text-secondary">No tools available yet.</p>
 						</div>
 					) : (
 						tools.map((tool) => (
 							<Link
 								key={tool.id}
 								href={`/tools/${tool.slug}`}
-								className="rounded-xl border border-border-default border-l-accent-primary border-l-2 bg-bg-surface-1 p-4 transition-all duration-150 ease-in-out hover:-translate-y-px hover:border-border-strong hover:border-l-accent-primary-hover hover:bg-bg-surface-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
+								className="group flex flex-col justify-between rounded-lg border border-border-default bg-bg-surface-0 p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-primary/40 hover:bg-bg-surface-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-primary focus-visible:ring-offset-1 focus-visible:ring-offset-bg-base"
 							>
-								<h3 className="text-base font-semibold text-text-primary">{tool.name}</h3>
-								<p className="mt-1 line-clamp-2 text-sm text-text-secondary">
-									{tool.description ?? "Browse configs for this tool."}
-								</p>
+								<h3 className="font-mono text-sm font-semibold text-text-primary group-hover:text-accent-primary transition-colors">
+									/{tool.name.toLowerCase()}
+								</h3>
 							</Link>
 						))
 					)}
 				</div>
 			</section>
 
-			<section className="mt-12 sm:mt-16">
-				<div className="mb-6 flex items-center justify-between gap-4">
+			<section className="mt-20 sm:mt-28">
+				<div className="mb-6 flex items-end justify-between gap-4 border-b border-border-subtle pb-4">
 					<div>
-						<p className="text-xs font-medium uppercase tracking-widest text-accent-secondary">
-							Curated
+						<p className="font-mono text-xs font-medium uppercase tracking-widest text-accent-secondary mb-1">
+							@curated
 						</p>
-						<h2 className="mt-1 text-2xl font-semibold tracking-tight text-text-primary">
-							Featured
+						<h2 className="text-2xl font-semibold tracking-tight text-text-primary">
+							Featured Configs
 						</h2>
 					</div>
 					<Link
 						href="/browse"
-						className="text-sm font-medium text-accent-primary transition-colors duration-150 ease-in-out hover:text-accent-primary-hover"
+						className="font-mono text-xs text-accent-primary transition-colors hover:text-accent-primary-hover"
 					>
-						Browse all
+						[View all]
 					</Link>
 				</div>
 				<ConfigGrid
@@ -273,19 +272,21 @@ export default async function HomePage() {
 			</section>
 
 			{recent.length > 0 ? (
-				<section className="mt-12 sm:mt-16">
-					<div className="mb-6 flex items-center justify-between gap-4">
+				<section className="mt-20 sm:mt-28">
+					<div className="mb-6 flex items-end justify-between gap-4 border-b border-border-subtle pb-4">
 						<div>
-							<p className="text-xs font-medium uppercase tracking-widest text-info">Latest</p>
-							<h2 className="mt-1 text-2xl font-semibold tracking-tight text-text-primary">
+							<p className="font-mono text-xs font-medium uppercase tracking-widest text-info mb-1">
+								@latest
+							</p>
+							<h2 className="text-2xl font-semibold tracking-tight text-text-primary">
 								Recently Added
 							</h2>
 						</div>
 						<Link
 							href="/browse?sort=newest"
-							className="text-sm font-medium text-accent-primary transition-colors duration-150 ease-in-out hover:text-accent-primary-hover"
+							className="font-mono text-xs text-accent-primary transition-colors hover:text-accent-primary-hover"
 						>
-							View newest
+							[View newest]
 						</Link>
 					</div>
 					<ConfigGrid
@@ -296,8 +297,13 @@ export default async function HomePage() {
 				</section>
 			) : null}
 
-			<section className="mx-auto mt-12 max-w-xl sm:mt-16">
-				<NewsletterSignup />
+			<section className="mx-auto mt-20 max-w-xl sm:mt-28">
+				<div className="rounded-lg border border-border-default bg-bg-surface-0 p-8">
+					<p className="font-mono text-xs text-accent-primary mb-4 text-center">
+						&gt; subscribe --newsletter
+					</p>
+					<NewsletterSignup />
+				</div>
 			</section>
 		</div>
 	);
