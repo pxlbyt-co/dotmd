@@ -2,7 +2,9 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
 
+import { QuickViewDrawer } from "@/components/configs/QuickViewDrawer";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/constants";
@@ -78,6 +80,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						<main className="flex-1">{children}</main>
 						<Footer />
 					</div>
+					<Suspense fallback={null}>
+						<QuickViewDrawer />
+					</Suspense>
 				</NuqsAdapter>
 				<Analytics />
 			</body>

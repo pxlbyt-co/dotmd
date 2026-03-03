@@ -1,5 +1,8 @@
+"use client";
+
 import { FileCode } from "lucide-react";
 import Link from "next/link";
+import { useQueryState } from "nuqs";
 
 export interface ConfigCardTool {
 	slug: string;
@@ -27,12 +30,20 @@ interface ConfigCardProps {
 }
 
 export function ConfigCard({ config }: ConfigCardProps) {
+	const [, setQuickview] = useQueryState("quickview");
 	const visibleTools = config.tools.slice(0, 3);
 	const hiddenTools = config.tools.length - visibleTools.length;
 
 	return (
 		<Link
 			href={`/${config.slug}`}
+			onClick={(e) => {
+				// If it's a standard left click without modifiers, open the quick view drawer
+				if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+					e.preventDefault();
+					void setQuickview(config.slug);
+				}
+			}}
 			className="group flex flex-col gap-3 rounded-lg border border-border-default bg-bg-surface-0 p-5 transition-all duration-200 ease-out hover:-translate-y-px hover:border-accent-primary/40 hover:bg-bg-surface-1 hover:shadow-[0_4px_24px_rgba(0,0,0,0.4)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-primary focus-visible:ring-offset-1 focus-visible:ring-offset-bg-base"
 		>
 			<div className="flex items-center justify-between gap-3">
