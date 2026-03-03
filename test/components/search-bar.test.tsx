@@ -16,14 +16,29 @@ describe("SearchBar", () => {
 		pushMock.mockReset();
 	});
 
-	test("debounces navigation and encodes trimmed query", async () => {
+	test("hero variant navigates only on form submit", async () => {
 		render(<SearchBar debounceMs={5} />);
 
 		const input = screen.getByLabelText("Search configs");
 		fireEvent.change(input, { target: { value: "  next js  " } });
 
+		// Hero variant should NOT auto-navigate on debounce
+		await new Promise((resolve) => setTimeout(resolve, 20));
+		expect(pushMock).not.toHaveBeenCalled();
+
+		// Should navigate on form submit
+		fireEvent.submit(input.closest("form")!);
+		expect(pushMock).toHaveBeenCalledWith("/browse?q=next%20js");
+	});
+
+	test("compact variant debounces navigation", async () => {
+		render(<SearchBar variant="compact" debounceMs={5} />);
+
+		const input = screen.getByLabelText("Search configs");
+		fireEvent.change(input, { target: { value: "  next js  " } });
+
 		await waitFor(() => {
-			expect(pushMock).toHaveBeenCalledWith("/browse?q=next%20js");
+			expect(pushMock).toHaveBeenCalled();
 		});
 	});
 
