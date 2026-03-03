@@ -4,7 +4,7 @@ test("detail page shows feedback controls", async ({ page }) => {
 	await page.goto("/cursor-react-starter", { waitUntil: "domcontentloaded" });
 
 	await expect(page.getByRole("heading", { name: "Cursor React Starter" })).toBeVisible();
-	await expect(page.getByRole("heading", { name: "Community feedback" })).toBeVisible();
+	await expect(page.getByText("Diagnostics")).toBeVisible();
 
 	const helpfulButton = page.getByRole("button", { name: /Mark helpful|Helpful/ });
 	const voteButton = page.getByRole("button", { name: "Vote for Cursor" });

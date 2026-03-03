@@ -35,12 +35,12 @@ describe("ConfigCard", () => {
 		);
 
 		expect(screen.getByText("AGENTS.md")).toBeInTheDocument();
-		expect(screen.getByText("12 votes")).toBeInTheDocument();
+		expect(screen.getByText("↑ 12")).toBeInTheDocument();
 		expect(screen.getByText("Cursor")).toBeInTheDocument();
 		expect(screen.getByText("Claude Code")).toBeInTheDocument();
 		expect(screen.getByText("Copilot")).toBeInTheDocument();
 		expect(screen.getByText("+1")).toBeInTheDocument();
-		expect(screen.getByText("by arlo")).toBeInTheDocument();
+		expect(screen.getByText("@arlo")).toBeInTheDocument();
 		expect(screen.getByRole("link")).toHaveAttribute("href", "/awesome-config");
 	});
 
@@ -61,7 +61,7 @@ describe("ConfigCard", () => {
 		);
 
 		expect(screen.getByText("Config")).toBeInTheDocument();
-		expect(screen.queryByText(/votes/)).toBeNull();
+		expect(screen.queryByText(/↑/)).toBeNull();
 		expect(screen.queryByText("+1")).toBeNull();
 	});
 });
