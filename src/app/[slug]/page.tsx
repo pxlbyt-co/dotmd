@@ -317,19 +317,6 @@ export default async function ConfigDetailPage({ params }: PageProps) {
 							<span className="text-accent-secondary">published:</span>
 							<span className="text-text-primary">{publishedLabel}</span>
 						</div>
-						{config.source_url ? (
-							<div className="flex items-center gap-2">
-								<span className="text-accent-secondary">source:</span>
-								<a
-									href={config.source_url}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-accent-primary transition-colors hover:text-accent-primary-hover hover:underline"
-								>
-									[view_repository]
-								</a>
-							</div>
-						) : null}
 					</div>
 				</header>
 

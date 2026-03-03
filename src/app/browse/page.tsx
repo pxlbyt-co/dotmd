@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { ConfigGrid } from "@/components/configs/ConfigGrid";
 import { type BrowseSort, FilterBar } from "@/components/filters/FilterBar";
+import { SearchBar } from "@/components/search/SearchBar";
 import { Button } from "@/components/ui/button";
 import type { TAG_CATEGORIES } from "@/lib/constants";
 import type { ConfigSearchResult } from "@/types";
@@ -12,6 +13,7 @@ const SORT_OPTIONS = ["popular", "newest", "alphabetical"] as const;
 const DEFAULT_SORT: BrowseSort = "popular";
 
 type SearchParams = {
+	q?: string | string[];
 	tool?: string | string[];
 	tag?: string | string[];
 	sort?: string | string[];
@@ -188,8 +190,18 @@ function sortConfigs(configs: BrowseConfig[], sort: BrowseSort) {
 	return sorted;
 }
 
-function buildPageHref(params: { tool?: string; tag?: string; sort: BrowseSort; page: number }) {
+function buildPageHref(params: {
+	q?: string;
+	tool?: string;
+	tag?: string;
+	sort: BrowseSort;
+	page: number;
+}) {
 	const search = new URLSearchParams();
+
+	if (params.q) {
+		search.set("q", params.q);
+	}
 
 	if (params.tool) {
 		search.set("tool", params.tool);
@@ -211,7 +223,7 @@ function buildPageHref(params: { tool?: string; tag?: string; sort: BrowseSort; 
 	return query ? `/browse?${query}` : "/browse";
 }
 
-async function fetchBrowseData() {
+async function fetchBrowseData(query?: string) {
 	const hasSupabaseConfig = Boolean(
 		process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
 	);
@@ -229,6 +241,22 @@ async function fetchBrowseData() {
 		const { createClient } = await import("@/lib/supabase/server");
 		const supabase = await createClient();
 
+		const trimmedQuery = query?.trim();
+
+		let configsQuery = supabase
+			.from("configs")
+			.select(
+				"id, slug, title, description, author_name, published_at, file_types(slug, name), config_tools(tools(slug, name)), config_tags(tags(slug, name, category)), votes(id), anonymous_votes(id)",
+			)
+			.eq("status", "published");
+
+		if (trimmedQuery) {
+			configsQuery = configsQuery.textSearch("search_vector", trimmedQuery, {
+				type: "websearch",
+				config: "english",
+			});
+		}
+
 		const [toolsResult, tagsResult, configsResult] = await Promise.all([
 			supabase.from("tools").select("id, slug, name").order("sort_order", { ascending: true }),
 			supabase
@@ -236,12 +264,7 @@ async function fetchBrowseData() {
 				.select("id, slug, name, category")
 				.order("category", { ascending: true })
 				.order("name", { ascending: true }),
-			supabase
-				.from("configs")
-				.select(
-					"id, slug, title, description, author_name, published_at, file_types(slug, name), config_tools(tools(slug, name)), config_tags(tags(slug, name, category)), votes(id), anonymous_votes(id)",
-				)
-				.eq("status", "published"),
+			configsQuery,
 		]);
 
 		if (toolsResult.error || tagsResult.error || configsResult.error) {
@@ -310,12 +333,13 @@ async function fetchBrowseData() {
 export default async function BrowsePage({ searchParams }: PageProps) {
 	const resolvedSearchParams = await searchParams;
 
+	const searchQuery = toSingleValue(resolvedSearchParams?.q)?.trim() ?? "";
 	const selectedTool = toSingleValue(resolvedSearchParams?.tool);
 	const selectedTag = toSingleValue(resolvedSearchParams?.tag);
 	const sort = parseSort(resolvedSearchParams?.sort);
 	const requestedPage = parsePage(resolvedSearchParams?.page);
 
-	const { tools, tags, configs, error } = await fetchBrowseData();
+	const { tools, tags, configs, error } = await fetchBrowseData(searchQuery);
 
 	const filteredConfigs = configs.filter((config) => {
 		const matchesTool = selectedTool
@@ -359,6 +383,13 @@ export default async function BrowsePage({ searchParams }: PageProps) {
 				</p>
 			</div>
 
+			<div className="rounded-xl border border-border-default bg-bg-surface-0 p-4">
+				<p className="mb-2 font-mono text-[11px] uppercase tracking-[0.16em] text-text-tertiary">
+					{"// search"}
+				</p>
+				<SearchBar variant="compact" query={searchQuery} className="max-w-none" />
+			</div>
+
 			<FilterBar
 				tools={tools}
 				tags={tags}
@@ -392,6 +423,7 @@ export default async function BrowsePage({ searchParams }: PageProps) {
 								<Button asChild variant="outline">
 									<Link
 										href={buildPageHref({
+											q: searchQuery || undefined,
 											tool: selectedTool,
 											tag: selectedTag,
 											sort,
@@ -413,6 +445,7 @@ export default async function BrowsePage({ searchParams }: PageProps) {
 								<Button asChild variant="outline">
 									<Link
 										href={buildPageHref({
+											q: searchQuery || undefined,
 											tool: selectedTool,
 											tag: selectedTag,
 											sort,
