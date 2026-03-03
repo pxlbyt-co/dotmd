@@ -34,20 +34,11 @@ export const metadata: Metadata = {
 		title: "dotmd — ANYTHING.md directory",
 		description: SITE_TAGLINE,
 		url: SITE_URL,
-		images: [
-			{
-				url: "/opengraph-image.png",
-				width: 1200,
-				height: 630,
-				alt: "dotmd — ANYTHING.md directory",
-			},
-		],
 	},
 	twitter: {
 		card: "summary_large_image",
 		title: "dotmd — ANYTHING.md directory",
 		description: SITE_TAGLINE,
-		images: ["/opengraph-image.png"],
 	},
 };
 
