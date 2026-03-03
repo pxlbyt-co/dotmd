@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	const websiteJsonLdString = JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c");
 
 	return (
-		<html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+		<html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
 			<head>
 				<meta name="color-scheme" content="dark" />
 			</head>
