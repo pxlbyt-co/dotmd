@@ -89,17 +89,45 @@ export default async function Image() {
 					<span>{"// Copy"}</span>
 					<span>{"// Remix"}</span>
 				</div>
-				<div
-					style={{
-						fontSize: 32,
-						color: "#f8fafc",
-						background: "rgba(56, 189, 248, 0.1)",
-						border: "1px solid rgba(56, 189, 248, 0.3)",
-						padding: "12px 24px",
-						borderRadius: "8px",
-					}}
-				>
-					.cursorrules
+
+				{/* File Types Row */}
+				<div style={{ display: "flex", gap: "16px" }}>
+					<div
+						style={{
+							fontSize: 24,
+							color: "#c084fc",
+							background: "rgba(192, 132, 252, 0.1)",
+							border: "1px solid rgba(192, 132, 252, 0.3)",
+							padding: "12px 24px",
+							borderRadius: "8px",
+						}}
+					>
+						AGENTS.md
+					</div>
+					<div
+						style={{
+							fontSize: 24,
+							color: "#38bdf8",
+							background: "rgba(56, 189, 248, 0.1)",
+							border: "1px solid rgba(56, 189, 248, 0.3)",
+							padding: "12px 24px",
+							borderRadius: "8px",
+						}}
+					>
+						.cursorrules
+					</div>
+					<div
+						style={{
+							fontSize: 24,
+							color: "#f8fafc",
+							background: "#111111",
+							border: "1px solid rgba(255, 255, 255, 0.12)",
+							padding: "12px 24px",
+							borderRadius: "8px",
+						}}
+					>
+						CLAUDE.md
+					</div>
 				</div>
 			</div>
 		</div>,
