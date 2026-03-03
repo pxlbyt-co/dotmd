@@ -33,7 +33,7 @@ export function MobileNav() {
 					<div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 sm:px-6 lg:px-8">
 						<div className="mb-2 px-2">
 							<span className="font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
-								// Navigation
+								{"// Navigation"}
 							</span>
 						</div>
 						{NAV_LINKS.map((link) => (
