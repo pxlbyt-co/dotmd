@@ -7,7 +7,23 @@ import { Button } from "@/components/ui/button";
 import type { TAG_CATEGORIES } from "@/lib/constants";
 import type { ConfigSearchResult } from "@/types";
 
-const PAGE_SIZE = 20;
+/**
+ * Grid column counts at each responsive breakpoint (must match ConfigGrid classes).
+ * Mobile: 1 col, sm (≥640px): 2 cols, lg (≥1024px): 3 cols.
+ */
+const GRID_COLUMNS = [1, 2, 3] as const;
+
+/** Least-common-multiple of all grid column counts so every row is full. */
+function lcm(a: number, b: number): number {
+	let [x, y] = [a, b];
+	while (y) [x, y] = [y, x % y];
+	return (a / x) * b;
+}
+const COLUMNS_LCM = GRID_COLUMNS.reduce(lcm);
+
+/** Smallest multiple of COLUMNS_LCM that is ≥ 18 items per page. */
+const PAGE_SIZE = Math.ceil(18 / COLUMNS_LCM) * COLUMNS_LCM; // → 18
+
 const SORT_OPTIONS = ["popular", "newest", "alphabetical"] as const;
 const DEFAULT_SORT: BrowseSort = "popular";
 
