@@ -14,7 +14,7 @@ function lcm(a: number, b: number): number {
 	while (y) [x, y] = [y, x % y];
 	return (a / x) * b;
 }
-const COLUMNS_LCM = GRID_COLUMNS.reduce(lcm);
+const COLUMNS_LCM = GRID_COLUMNS.reduce<number>(lcm, 1);
 
 /** Smallest multiple of COLUMNS_LCM that is ≥ 18 items per page. */
 const PAGE_SIZE = Math.ceil(18 / COLUMNS_LCM) * COLUMNS_LCM; // → 18
