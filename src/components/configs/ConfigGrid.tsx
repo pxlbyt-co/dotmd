@@ -1,14 +1,12 @@
 import { ConfigCard, type ConfigCardData } from "@/components/configs/ConfigCard";
-import { GRID_COLUMNS } from "@/lib/grid";
+import type { GRID_COLUMNS } from "@/lib/grid";
 
 /**
- * Keep this grid aligned with the breakpoints used in `GRID_COLUMNS`.
+ * Type-level assertion: grid classes must stay in sync with GRID_COLUMNS.
+ * If GRID_COLUMNS changes, this will produce a compile error.
  */
-const _GRID_COLUMN_CLASS_ASSERT: [
-	`grid-cols-${(typeof GRID_COLUMNS)[0]}`,
-	`sm:grid-cols-${(typeof GRID_COLUMNS)[1]}`,
-	`lg:grid-cols-${(typeof GRID_COLUMNS)[2]}`,
-] = ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3"];
+type _AssertGridClasses = ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3"] extends
+	[`grid-cols-${typeof GRID_COLUMNS[0]}`, `sm:grid-cols-${typeof GRID_COLUMNS[1]}`, `lg:grid-cols-${typeof GRID_COLUMNS[2]}`] ? true : never;
 
 interface ConfigGridProps {
 	configs: ConfigCardData[];
