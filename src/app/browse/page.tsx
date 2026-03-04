@@ -6,9 +6,20 @@ import { type BrowseSort, FilterBar } from "@/components/filters/FilterBar";
 import { SearchBar } from "@/components/search/SearchBar";
 import { Button } from "@/components/ui/button";
 import type { TAG_CATEGORIES } from "@/lib/constants";
+import { GRID_COLUMNS } from "@/lib/grid";
 import type { ConfigSearchResult } from "@/types";
 
-const PAGE_SIZE = 20;
+/** Least-common-multiple of all grid column counts so every row is full. */
+function lcm(a: number, b: number): number {
+	let [x, y] = [a, b];
+	while (y) [x, y] = [y, x % y];
+	return (a / x) * b;
+}
+const COLUMNS_LCM = GRID_COLUMNS.reduce<number>(lcm, 1);
+
+/** Smallest multiple of COLUMNS_LCM that is ≥ 18 items per page. */
+const PAGE_SIZE = Math.ceil(18 / COLUMNS_LCM) * COLUMNS_LCM; // → 18
+
 const SORT_OPTIONS = ["popular", "newest", "alphabetical"] as const;
 const DEFAULT_SORT: BrowseSort = "popular";
 
