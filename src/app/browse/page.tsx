@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ConfigGrid } from "@/components/configs/ConfigGrid";
 import { type BrowseSort, FilterBar } from "@/components/filters/FilterBar";
 import { Button } from "@/components/ui/button";
-import { GRID_COLUMNS } from "@/lib/grid";
 import type { TAG_CATEGORIES } from "@/lib/constants";
+import { GRID_COLUMNS } from "@/lib/grid";
 import type { ConfigSearchResult } from "@/types";
 
 /** Least-common-multiple of all grid column counts so every row is full. */
