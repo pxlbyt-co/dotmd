@@ -4,14 +4,9 @@ import Link from "next/link";
 import { ConfigGrid } from "@/components/configs/ConfigGrid";
 import { type BrowseSort, FilterBar } from "@/components/filters/FilterBar";
 import { Button } from "@/components/ui/button";
+import { GRID_COLUMNS } from "@/lib/grid";
 import type { TAG_CATEGORIES } from "@/lib/constants";
 import type { ConfigSearchResult } from "@/types";
-
-/**
- * Grid column counts at each responsive breakpoint (must match ConfigGrid classes).
- * Mobile: 1 col, sm (≥640px): 2 cols, lg (≥1024px): 3 cols.
- */
-const GRID_COLUMNS = [1, 2, 3] as const;
 
 /** Least-common-multiple of all grid column counts so every row is full. */
 function lcm(a: number, b: number): number {

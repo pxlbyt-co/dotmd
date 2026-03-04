@@ -1,4 +1,14 @@
 import { ConfigCard, type ConfigCardData } from "@/components/configs/ConfigCard";
+import { GRID_COLUMNS } from "@/lib/grid";
+
+/**
+ * Keep this grid aligned with the breakpoints used in `GRID_COLUMNS`.
+ */
+const _GRID_COLUMN_CLASS_ASSERT: [
+	`grid-cols-${(typeof GRID_COLUMNS)[0]}`,
+	`sm:grid-cols-${(typeof GRID_COLUMNS)[1]}`,
+	`lg:grid-cols-${(typeof GRID_COLUMNS)[2]}`,
+] = ["grid-cols-1", "sm:grid-cols-2", "lg:grid-cols-3"];
 
 interface ConfigGridProps {
 	configs: ConfigCardData[];
