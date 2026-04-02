@@ -242,7 +242,7 @@ export default async function FileTypeLandingPage({ params }: PageProps) {
 	const faqEntries = [
 		{
 			question: `What is ${fileType.name}?`,
-			answer: `${fileType.name} is ${purposeText}. It helps teams standardize behavior and instructions across projects.`,
+			answer: `${fileType.name} is ${purposeText}.`,
 		},
 		{
 			question: `Where does ${fileType.name} go in my project?`,
@@ -289,8 +289,8 @@ export default async function FileTypeLandingPage({ params }: PageProps) {
 			{
 				"@type": "ListItem",
 				position: 2,
-				name: "File Types",
-				item: "https://dotmd.directory/types",
+				name: "Browse",
+				item: "https://dotmd.directory/browse",
 			},
 			{
 				"@type": "ListItem",

@@ -94,8 +94,8 @@ export default async function TagPage({ params }: PageProps) {
 			{
 				"@type": "ListItem",
 				position: 2,
-				name: "Tags",
-				item: "https://dotmd.directory/tags",
+				name: "Browse",
+				item: "https://dotmd.directory/browse",
 			},
 			{
 				"@type": "ListItem",

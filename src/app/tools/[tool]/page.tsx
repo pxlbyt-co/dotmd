@@ -144,8 +144,8 @@ export default async function ToolLandingPage({ params }: PageProps) {
 			{
 				"@type": "ListItem",
 				position: 2,
-				name: "Tools",
-				item: "https://dotmd.directory/tools",
+				name: "Browse",
+				item: "https://dotmd.directory/browse",
 			},
 			{
 				"@type": "ListItem",
