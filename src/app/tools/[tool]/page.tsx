@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 		};
 	}
 
-	const title = `Best Config Files for ${tool.name} | dotmd`;
+	const title = `Best ${tool.name} Config Files — AGENTS.md, SOUL.md & More | dotmd`;
 	const description =
 		tool.description ??
 		`Browse the best AGENTS.md, SOUL.md, and other config files for ${tool.name}.`;
@@ -131,11 +131,37 @@ export default async function ToolLandingPage({ params }: PageProps) {
 			itemListElement: itemListElements,
 		},
 	};
+	const breadcrumbJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Home",
+				item: "https://dotmd.directory/",
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Tools",
+				item: "https://dotmd.directory/tools",
+			},
+			{
+				"@type": "ListItem",
+				position: 3,
+				name: tool.name,
+				item: `https://dotmd.directory/tools/${tool.slug}`,
+			},
+		],
+	};
 	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
+	const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
 			<script type="application/ld+json">{collectionPageJsonLdString}</script>
+			<script type="application/ld+json">{breadcrumbJsonLdString}</script>
 			<header className="space-y-3">
 				<p className="text-sm font-medium uppercase tracking-wide text-accent-primary">Tool</p>
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">

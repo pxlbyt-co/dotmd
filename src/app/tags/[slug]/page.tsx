@@ -81,11 +81,37 @@ export default async function TagPage({ params }: PageProps) {
 			itemListElement: itemListElements,
 		},
 	};
+	const breadcrumbJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Home",
+				item: "https://dotmd.directory/",
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Tags",
+				item: "https://dotmd.directory/tags",
+			},
+			{
+				"@type": "ListItem",
+				position: 3,
+				name: tag.name,
+				item: `https://dotmd.directory/tags/${tag.slug}`,
+			},
+		],
+	};
 	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
+	const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
 			<script type="application/ld+json">{collectionPageJsonLdString}</script>
+			<script type="application/ld+json">{breadcrumbJsonLdString}</script>
 			<header className="space-y-3">
 				<p className="text-sm font-medium uppercase tracking-wide text-accent-primary">Tag</p>
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary sm:text-4xl">
