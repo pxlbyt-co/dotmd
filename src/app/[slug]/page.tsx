@@ -247,12 +247,16 @@ export default async function ConfigDetailPage({ params }: PageProps) {
 		? publishedDateFormatter.format(new Date(config.published_at))
 		: "Not published";
 	const configUrl = `https://dotmd.directory/${config.slug}`;
-	const creativeWorkJsonLd = {
+	const softwareSourceCodeJsonLd = {
 		"@context": "https://schema.org",
-		"@type": "CreativeWork",
+		"@type": "SoftwareSourceCode",
 		name: config.title,
 		description: config.description,
 		url: configUrl,
+		programmingLanguage: "Markdown",
+		codeRepository: config.source_url ?? undefined,
+		runtimePlatform:
+			config.tools.length > 0 ? config.tools.map((tool) => tool.name).join(", ") : undefined,
 		license: config.license,
 		author: {
 			"@type": "Person",
@@ -267,12 +271,41 @@ export default async function ConfigDetailPage({ params }: PageProps) {
 		keywords: [config.file_type.name, ...config.tools.map((tool) => tool.name)],
 		text: config.content,
 	};
+	const breadcrumbJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Home",
+				item: "https://dotmd.directory/",
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Browse",
+				item: "https://dotmd.directory/browse",
+			},
+			{
+				"@type": "ListItem",
+				position: 3,
+				name: config.title,
+				item: configUrl,
+			},
+		],
+	};
 
-	const creativeWorkJsonLdString = JSON.stringify(creativeWorkJsonLd).replace(/</g, "\\u003c");
+	const softwareSourceCodeJsonLdString = JSON.stringify(softwareSourceCodeJsonLd).replace(
+		/</g,
+		"\\u003c",
+	);
+	const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-			<script type="application/ld+json">{creativeWorkJsonLdString}</script>
+			<script type="application/ld+json">{softwareSourceCodeJsonLdString}</script>
+			<script type="application/ld+json">{breadcrumbJsonLdString}</script>
 			<article className="space-y-10">
 				<header className="space-y-6 border-b border-border-default pb-8">
 					<div className="space-y-3">

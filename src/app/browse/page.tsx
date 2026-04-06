@@ -382,11 +382,31 @@ export default async function BrowsePage({ searchParams }: PageProps) {
 			itemListElement: itemListElements,
 		},
 	};
+	const breadcrumbJsonLd = {
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: [
+			{
+				"@type": "ListItem",
+				position: 1,
+				name: "Home",
+				item: "https://dotmd.directory/",
+			},
+			{
+				"@type": "ListItem",
+				position: 2,
+				name: "Browse",
+				item: "https://dotmd.directory/browse",
+			},
+		],
+	};
 	const collectionPageJsonLdString = JSON.stringify(collectionPageJsonLd).replace(/</g, "\\u003c");
+	const breadcrumbJsonLdString = JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c");
 
 	return (
 		<div className="mx-auto w-full max-w-[1440px] px-4 py-8 sm:px-6 lg:px-8">
 			<script type="application/ld+json">{collectionPageJsonLdString}</script>
+			<script type="application/ld+json">{breadcrumbJsonLdString}</script>
 			<div className="mb-8 space-y-2">
 				<h1 className="text-3xl font-semibold tracking-tight text-text-primary">Browse configs</h1>
 				<p className="text-sm text-text-secondary">
